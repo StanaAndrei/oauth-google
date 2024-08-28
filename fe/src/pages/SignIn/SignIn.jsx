@@ -12,7 +12,7 @@ function SignIn() {
       email, password
     }).then(res => {
       console.log(res);
-      
+      localStorage.setItem('auth_jwt', res.data)
     }).catch(err => {
       alert('ERROR')
       console.error(err);

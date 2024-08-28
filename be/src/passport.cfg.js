@@ -28,8 +28,8 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, passwor
 passport.use(new JwtStrategy({
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.JWT_SECRET,
-}, (jwtPayload, done) => {
-  const user = UserService.findUserById(jwtPayload.id);
+}, async (jwtPayload, done) => {
+  const user = await UserService.findUserById(jwtPayload.id);
   if (user) {
     return done(null, user);
   } else {

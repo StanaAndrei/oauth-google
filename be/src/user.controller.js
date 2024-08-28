@@ -30,8 +30,13 @@ const googleSignUpCallback = async (req, res) => {
 
 }
 
+const getMe = async (req, res) => {    
+    res.status(200).send(req.user)
+}
+
 const UserController = {
     signIn, signUp, 
-    googleSignUp, googleSignUpCallback
+    googleSignUp, googleSignUpCallback, 
+    getMe
 }
 module.exports = UserController

@@ -14,5 +14,8 @@ userRouter.get(
     }),
     UserController.googleSignUpCallback
 )
+userRouter.get('/me', passport.authenticate('jwt', {
+    session: false
+}), UserController.getMe)
 
 module.exports = userRouter;
