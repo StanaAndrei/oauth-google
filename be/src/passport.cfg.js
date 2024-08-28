@@ -4,18 +4,23 @@ const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { ExtractJwt } = require('passport-jwt');
-const bcrypt = require('bcryptjs');
 const UserService = require('./user.service');
 
 // Local Strategy for classic login
-passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
-  const user = UserService.findUserByEmail(email);
+passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
+    console.log(email);
+    
+  const user = await UserService.findUserByEmail(email);
+  console.log(user);
+  
   if (!user) {
-    return done(null, false, { message: 'Incorrect email.' });
+    return done(null, false, 'WRONG_EMAIL');
   }
-  if (!bcrypt.compareSync(password, user.password)) {
-    return done(null, false, { message: 'Incorrect password.' });
+  if (user.password !== password) {
+    return done(null, false, 'WRONG_PASSWORD');
   }
+  console.log(88);
+  
   return done(null, user);
 }));
 
