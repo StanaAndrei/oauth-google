@@ -55,7 +55,7 @@ passport.use('google-login', new GoogleStrategy({
 }, (token, tokenSecret, profile, done) => {
   let user = UserService.findUserByEmail(profile.emails[0].value);
   if (!user) {
-    return done(null, false, { message: 'No user found. Please sign up first.' });
+    return done(null, false, 'NOT_FOUND');
   }
   return done(null, user);
 }));
