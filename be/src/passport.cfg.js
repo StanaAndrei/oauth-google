@@ -40,11 +40,9 @@ passport.use('google-signup', new GoogleStrategy({
 }, (token, tokenSecret, profile, done) => {
   let user = UserService.findUserByEmail(profile.emails[0].value);
   if (!user) {
-    // Create and save new user if they don't exist
-    user = { id: users.length + 1, email: profile.emails[0].value, password: null }; // Google users won't have a password
-    users.push(user);
+    UserService.createUser(profile.emails[0].value, null)//no password
   } else {
-    return done(null, false, { message: 'User already exists.' });
+    return done(null, false, 'ALREADY_EXISTS');
   }
   return done(null, user);
 }));
