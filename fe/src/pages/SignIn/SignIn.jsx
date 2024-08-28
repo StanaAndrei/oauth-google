@@ -8,7 +8,6 @@ function SignIn() {
   
   const handleSubmit = e => {
     e.preventDefault()
-    console.log(email, password);
     axiosInstToSv.post('/user/signin', {
       email, password
     }).then(res => {
