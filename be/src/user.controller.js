@@ -13,11 +13,6 @@ const signUp = async (req, res) => {
 
 const signIn = async (req, res, next) => {
     passport.authenticate('local', { session: false }, (err, user, info) => {
-        
-        console.log(req.body);
-        
-        console.log(info);
-        
         if (err || !user) {
             return res.status(400).send(info ? info : 'FAIL')
         }
@@ -25,7 +20,18 @@ const signIn = async (req, res, next) => {
     })(req, res, next)
 }
 
+const googleSignUp = async (req, res) => {
+    passport.authenticate('google-signup', {
+        scope: ['profile', 'email']
+    })
+}
+
+const googleSignUpCallback = async (req, res) => {
+
+}
+
 const UserController = {
-    signIn, signUp
+    signIn, signUp, 
+    googleSignUp, googleSignUpCallback
 }
 module.exports = UserController

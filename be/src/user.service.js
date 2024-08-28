@@ -15,6 +15,7 @@ const findUserById = async (id) => {
 
 const createUser = async (email, password) => {
   users.push({ email, password, id: users.length + 1 });
+  console.log('---------------------------------', users[users.length - 1]);
   return users[users.length - 1]
 };
 
