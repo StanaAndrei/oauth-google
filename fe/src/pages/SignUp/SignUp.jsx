@@ -1,9 +1,7 @@
 import React from 'react';
 import { axiosInstToSv, urlPrefix } from '../../utils/axios.utils';
-import { useNavigate } from 'react-router';
 
 function SignUp() {
-  const navigate = useNavigate()
 
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('');
@@ -27,8 +25,7 @@ function SignUp() {
 
   const handleGoogleSignUp = e => {
     e.preventDefault()
-    window.open(`${urlPrefix}/api/user/google-signup/`)
-    setTimeout(() => navigate('/signin'), 300)
+    window.open(`${urlPrefix}/api/user/google-signup/`, '_self')
   }
 
   return (

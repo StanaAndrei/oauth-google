@@ -13,10 +13,9 @@ userRouter.get(
     '/google-signup/callback', 
     passport.authenticate('google-signup', {
         session: false,
-        successRedirect: '/success',
         failureRedirect: '/fail'
     }),
-    () => undefined
+    UserController.googleOauthSuccess
 )
 
 userRouter.get('/google-signin', [], passport.authenticate('google-signin', { scope: ['profile', 'email'] }))

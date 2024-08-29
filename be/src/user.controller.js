@@ -26,6 +26,8 @@ const getMe = async (req, res) => {
 }
 
 const googleOauthSuccess = async (req, res) => {
+    console.log(req.query); //bonus info
+    
     const token = generateJWT(req.user)
     res.redirect(`${LOGIN_DONE_REDIR}?token=${token}`)
 }
