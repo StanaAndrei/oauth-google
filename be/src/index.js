@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const userRouter = require('./user.router');
+const expressSession = require('express-session')
 
 require('dotenv').config();
 require('./passport.cfg')
@@ -12,6 +13,11 @@ const app = express();
 
 app.use(bodyParser.json())
 app.use(passport.initialize())
+app.use(expressSession({
+    secret: 'Enter your secret key',
+    resave: true,
+    saveUninitialized: true
+}))
 app.use(cors());
 
 const HTTP_PORT = 3001;

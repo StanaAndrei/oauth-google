@@ -8,7 +8,7 @@ const signUp = async (req, res) => {
     if (await UserService.findUserByEmail(email)) {
         return res.status(400).send('ALREADY_EXISTS')
     }
-    await UserService.createUser(email, password)
+    await UserService.createUser({ email, password, userType: 0})
     res.status(201).end()
 }
 
@@ -25,9 +25,7 @@ const getMe = async (req, res) => {
     res.status(200).send(req.user)
 }
 
-const googleOauthSuccess = async (req, res) => {
-    console.log(req.query); //bonus info
-    
+const googleOauthSuccess = async (req, res) => {    
     const token = generateJWT(req.user)
     res.redirect(`${LOGIN_DONE_REDIR}?token=${token}`)
 }

@@ -25,7 +25,7 @@ function SignUp() {
 
   const handleGoogleSignUp = e => {
     e.preventDefault()
-    window.open(`${urlPrefix}/api/user/google-signup/`, '_self')
+    window.open(`${urlPrefix}/api/user/google-signup/?userType=1`, '_self')
   }
 
   return (
