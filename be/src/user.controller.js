@@ -20,14 +20,12 @@ const signIn = async (req, res, next) => {
     })(req, res, next)
 }
 
-const googleSignUp = async (req, res) => {
-    passport.authenticate('google-signup', {
-        scope: ['profile', 'email']
-    })
-}
-
 const googleSignUpCallback = async (req, res) => {
-
+    
+    console.log('====================================');
+    console.log(req.user);
+    console.log('====================================');
+    res.end()
 }
 
 const getMe = async (req, res) => {    
@@ -36,7 +34,7 @@ const getMe = async (req, res) => {
 
 const UserController = {
     signIn, signUp, 
-    googleSignUp, googleSignUpCallback, 
+    googleSignUpCallback, 
     getMe
 }
 module.exports = UserController

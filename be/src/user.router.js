@@ -5,12 +5,13 @@ const passport = require('passport');
 
 userRouter.post('/signup', UserController.signUp)
 userRouter.post('/signin', UserController.signIn)
-userRouter.get('/google-signup', UserController.googleSignUp)
+userRouter.get('/google-signup', passport.authenticate('google-signup', { scope: ['profile', 'email'] }))
 userRouter.get(
-    '/google-signup', 
+    '/google-signup/callback', 
     passport.authenticate('google-signup', {
         session: false,
-        failureRedirect: '/'
+        successRedirect: '/',
+        failureRedirect: '/fail'
     }),
     UserController.googleSignUpCallback
 )

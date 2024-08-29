@@ -41,11 +41,11 @@ passport.use(new JwtStrategy({
 passport.use('google-signup', new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: '/auth/google/signup/callback',
+  callbackURL: '/api/user/google-signup/callback',
 }, async (token, tokenSecret, profile, done) => {
   let user = await UserService.findUserByEmail(profile.emails[0].value);
   if (!user) {
-    await UserService.createUser(profile.emails[0].value, null)//no password
+    user = await UserService.createUser(profile.emails[0].value, null)//no password
   } else {
     return done(null, false, 'ALREADY_EXISTS');
   }
@@ -58,7 +58,7 @@ passport.use('google-login', new GoogleStrategy({
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: '/auth/google/login/callback',
 }, (token, tokenSecret, profile, done) => {
-  let user = UserService.findUserByEmail(profile.emails[0].value);
+  const user = UserService.findUserByEmail(profile.emails[0].value);
   if (!user) {
     return done(null, false, 'NOT_FOUND');
   }
