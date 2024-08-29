@@ -1,7 +1,9 @@
 import React from 'react';
-import { axiosInstToSv } from '../../utils/axios.utils';
+import { axiosInstToSv, urlPrefix } from '../../utils/axios.utils';
+import { useNavigate } from 'react-router';
 
 function SignUp() {
+  const navigate = useNavigate()
 
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('');
@@ -23,6 +25,12 @@ function SignUp() {
     })
   }
 
+  const handleGoogleSignUp = e => {
+    e.preventDefault()
+    window.open(`${urlPrefix}/api/user/google-signup/`)
+    setTimeout(() => navigate('/signin'), 300)
+  }
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -32,6 +40,9 @@ function SignUp() {
 
       <button type='submit'>Sign Up</button>
       </form>
+      <br /><br />
+      OR{' '}
+      <button onClick={handleGoogleSignUp}>sign up with google</button>
     </div>
   );
 }
