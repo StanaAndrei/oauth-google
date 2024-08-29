@@ -19,4 +19,6 @@ app.listen(HTTP_PORT, () => {
     console.log(`Listening on port ${HTTP_PORT}!`);
     app.use('/api/user/', userRouter);
     app.get('/', (req, res) => res.status(200).send('HI!'))
+    app.get('/fail', (req, res) => res.status(500).send('FAIL!!!'))
+    app.get('/success', (req, res) => res.status(500).send('SUCCESS!!!'))
 })

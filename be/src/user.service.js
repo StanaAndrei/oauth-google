@@ -3,6 +3,10 @@ const users = [{
     email: 'ion@gmail.com',
     password: 'password',
     id: 1,
+}, {
+    email: 'stana.andrei.2003@gmail.com',
+    password: 'password',
+    id: 2,
 }];//wannabe db
 
 const findUserByEmail = async (email) => {

@@ -53,12 +53,12 @@ passport.use('google-signup', new GoogleStrategy({
 }));
 
 // Google OAuth2 Strategy for login
-passport.use('google-login', new GoogleStrategy({
+passport.use('google-signin', new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: '/auth/google/login/callback',
-}, (token, tokenSecret, profile, done) => {
-  const user = UserService.findUserByEmail(profile.emails[0].value);
+  callbackURL: '/api/user/google-signin/callback',
+}, async (token, tokenSecret, profile, done) => {
+  const user = await UserService.findUserByEmail(profile.emails[0].value);
   if (!user) {
     return done(null, false, 'NOT_FOUND');
   }
