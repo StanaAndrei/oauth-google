@@ -2,6 +2,7 @@ const generateJWT = require('./jwt.util');
 const { LOGIN_DONE_REDIR } = require('./konst');
 const UserService = require('./user.service')
 const passport = require('passport');
+const querystring = require('querystring');
 
 const signUp = async (req, res) => {
     const { email, password } = req.body;
@@ -30,8 +31,16 @@ const googleOauthSuccess = async (req, res) => {
     res.redirect(`${LOGIN_DONE_REDIR}?token=${token}`)
 }
 
+const googleSignUpHandler = async (req, res, next) => {
+    const state = querystring.stringify(req.query);
+    passport.authenticate('google-signup', { 
+        scope: ['profile', 'email'], 
+        state 
+    })(req, res, next)
+}
+
 const UserController = {
-    signIn, signUp, 
+    signIn, signUp, googleSignUpHandler,
     getMe, googleOauthSuccess
 }
 module.exports = UserController
